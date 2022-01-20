@@ -3,5 +3,16 @@
  include_once("./query/db_query.php");
 
  $database = new DB();
+ $table = "products";
 
- var_dump($database);
+ $data = [
+     "product_name"=>"Wheat",
+     "description" => "I love wheat so much",
+     "product_price" => "100.00"
+ ];
+
+ if($database->insert($table, $data)){
+     echo "Inserted successfully";
+ }
+
+//  echo $database->insert('products', []);
