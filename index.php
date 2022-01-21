@@ -52,7 +52,7 @@
         $table .="<td>".$value['product_name']."<td/>";
         $table .="<td>".$value['description']."<td/>";
         $table .="<td>".$value['product_price']."<td/>";
-        $table .="<td> <button onClick='function hi(){alert('Hi!')};hi()'>update</button><td/>";
+        $table .="<td> <button onclick=''>update</button><td/>";
         $table .="<td> <button>delete</button><td/>";
         $table .="<tr/>";
         
@@ -89,6 +89,9 @@
 
 <script type="text/javascript">
 
+    function UPDATE(table, id){
+        alert(table)
+    }
 
 
 </script>
