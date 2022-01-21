@@ -56,15 +56,16 @@ class DB{
     public function view(string $table, array $param, $where=null, int $limit=0, string $order='', $all = '*')
     {
         try{
-            $field = array_keys($param);
-            $value = array_values($param);
+            $field = implode(",",array_keys($param));
+            $value = implode("','",array_values($param));
 
-            if($where != null || $limit > 0 || $order !== "" ){
-                $sql = "SELECT ".$all." FROM ".$table." WHERE ".$field."=".$value."LIMIT ".$limit."OFFSET 0 ORDER BY ".$order." DESC";
-                
+            if($where != null || $limit > 0 || $order !== "" && count($param) > 0 ){
+                $sql = "SELECT ".$all." FROM ".$table." WHERE ".$field." = '".$value."' ORDER BY ".$order." LIMIT ".$limit;
             }else{
                 $sql = "SELECT ".$all." FROM ".$table;
             }
+
+           
             
             $stmt = $this->mySql->prepare($sql);
             $stmt->execute();
@@ -104,4 +105,6 @@ class DB{
             return $err->getMessage();
         }
     }
+
+    
 }
