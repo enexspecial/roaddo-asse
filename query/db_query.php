@@ -27,6 +27,11 @@ class DB{
     }
 
 
+    /**
+     * @var
+     */
+
+
     public function insert(string $table, array $params)
     {
         try{            
@@ -46,8 +51,31 @@ class DB{
         
     }
 
-    public function readResult(string $table, array $param)
-    {
+ 
 
+    public function view_all(string $table, array $param, $where=null, int $limit=0, string $order='', $all = '*')
+    {
+        try{
+            if($all){
+                $sql = "SELECT ".$all." FROM ".$table;
+            }
+            
+            $stmt = $this->mySql->prepare($sql);
+            $stmt->execute();
+            $stmt->setFetchMode(PDO::FETCH_ASSOC);          
+            return $stmt->fetchAll();
+        }catch(PDOException $err){
+            return $err->getMessage();
+        }
+
+    }
+
+    public function delete_one(string $table, int $data, array $clause)
+    {
+        try{
+
+        }catch(PDOException $err){
+            return $err->getMessage();
+        }
     }
 }
