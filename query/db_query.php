@@ -53,10 +53,16 @@ class DB{
 
  
 
-    public function view_all(string $table, array $param, $where=null, int $limit=0, string $order='', $all = '*')
+    public function view(string $table, array $param, $where=null, int $limit=0, string $order='', $all = '*')
     {
         try{
-            if($all){
+            $field = array_keys($param);
+            $value = array_values($param);
+
+            if($where != null || $limit > 0 || $order !== "" ){
+                $sql = "SELECT ".$all." FROM ".$table." WHERE ".$field."=".$value."LIMIT ".$limit."OFFSET 0 ORDER BY ".$order." DESC";
+                
+            }else{
                 $sql = "SELECT ".$all." FROM ".$table;
             }
             
@@ -70,9 +76,29 @@ class DB{
 
     }
 
-    public function delete_one(string $table, int $data, array $clause)
+
+    public function update(string $table, array $params, int $id)
     {
         try{
+            $field = array_keys($params);
+            $value = array_values($params);
+
+            $sql = "UPDATE ".$table."SET ".$field."=".$value."WHERE id =".$id;
+            $stmt = $this->mySql->prepare($sql);
+            return $stmt->execute();
+
+        }catch(PDOException $err){
+            return $err->getMessage();
+        }
+
+    }
+
+    public function delete(string $table, int $id)
+    {
+        try{
+
+            $sql = "DELETE FROM ".$table." WHERE id=".$id;
+            return $this->mySql->exec($sql);
 
         }catch(PDOException $err){
             return $err->getMessage();

@@ -16,7 +16,7 @@
 //  }
 
 
- $dbData = $database->view_all($table, []);
+ $dbData = $database->view($table, ["product_name"=>"wheat"], true, 2, 'created_at');
 
  var_dump($dbData);
 
