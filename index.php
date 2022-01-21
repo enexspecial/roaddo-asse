@@ -26,12 +26,13 @@
  }
 
 
- function readData(){
+ function readData()
+ {
 
     $database = new DB();
-    $table = "products";
+    $tables = "products";
 
-    $data = $database->view($table, ['product_name'=>'wheat'], true, 10, 'created_at');
+    $data = $database->view($tables, ['product_name'=>'wheat'], true, 10, 'created_at');
 
  
     $table = "<table>";
@@ -51,6 +52,8 @@
         $table .="<td>".$value['product_name']."<td/>";
         $table .="<td>".$value['description']."<td/>";
         $table .="<td>".$value['product_price']."<td/>";
+        $table .="<td> <button onClick='function hi(){alert('Hi!')};hi()'>update</button><td/>";
+        $table .="<td> <button>delete</button><td/>";
         $table .="<tr/>";
         
     }
@@ -62,10 +65,32 @@
 
  }
 
+ function update($table, $id){
+    $database = new DB();
+    if($database->update($table, ['product_name'=>'Rice'], $id)){
+        echo "<p>Updated Successfully</p>";
+    }            
+
+ }
+
+ function delete($table, $id){
+    $database = new DB();
+    if($database->delete($table, $id)){
+        echo "<p>Deleted Successfully</p>";
+    }
+
+ }
+
 
 
 
 
 ?>
+
+<script type="text/javascript">
+
+
+
+</script>
 
 
